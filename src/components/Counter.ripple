@@ -1,0 +1,93 @@
+import { track } from 'ripple'
+
+export component Counter() {
+  let count = track(0);
+
+  <div class="counter">
+    <p class="explanation">
+      {"Use "}<code>{"track()"}</code>{" to create reactive state, "}<code>{"@"}</code>{" to read/write it"}
+    </p>
+
+    <div class="counter-controls">
+      <button onClick={() => @count--} class="btn">{"-"}</button>
+      <span class="count-display">{@count}</span>
+      <button onClick={() => @count++} class="btn">{"+"}</button>
+    </div>
+
+    <div class="code-preview">
+      <code>{"let count = track(0);"}</code>
+      <code>{"<span>{@count}</span>"}</code>
+      <code>{"<button onClick={() => @count++}>+</button>"}</code>
+    </div>
+  </div>
+
+  <style>
+    .counter {
+      text-align: center;
+    }
+
+    .explanation {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .explanation code {
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    .counter-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .count-display {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #333;
+      min-width: 80px;
+    }
+
+    .code-preview {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .code-preview code {
+      display: block;
+      color: #9cdcfe;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+}

@@ -1,0 +1,184 @@
+export component UserCard() {
+  let user = #{
+    name: "Alex Developer",
+    role: "Frontend Engineer",
+    level: 1,
+    xp: 0
+  };
+
+  function gainXP() {
+    user.xp += 25;
+    if (user.xp >= 100) {
+      user.level += 1;
+      user.xp = 0;
+    }
+  }
+
+  function changeRole() {
+    const roles = ["Frontend Engineer", "Backend Engineer", "Full Stack", "DevOps"];
+    const currentIndex = roles.indexOf(user.role);
+    user.role = roles[(currentIndex + 1) % roles.length];
+  }
+
+  <div class="user-card">
+    <p class="explanation">
+      {"Use "}<code>{"#{}"}</code>{" for reactive objects - property changes auto-update UI"}
+    </p>
+
+    <div class="card">
+      <div class="avatar">
+        {user.name.charAt(0)}
+      </div>
+
+      <div class="info">
+        <input
+          type="text"
+          value={user.name}
+          onInput={(e) => user.name = e.target.value}
+          class="name-input"
+        />
+        <p class="role" onClick={changeRole}>{user.role}{" (click to change)"}</p>
+      </div>
+
+      <div class="stats">
+        <div class="level">{"Level "}{user.level}</div>
+        <div class="xp-bar">
+          <div class="xp-fill" style={`width: ${user.xp}%`}></div>
+        </div>
+        <p class="xp-text">{user.xp}{"/100 XP"}</p>
+        <button onClick={gainXP} class="xp-btn">{"+ Gain XP"}</button>
+      </div>
+    </div>
+
+    <div class="code-preview">
+      <code>{"let user = #{ name: \"Alex\", level: 1 };"}</code>
+      <code>{"user.level += 1;  // UI auto-updates!"}</code>
+      <code>{"<span>{user.name}</span>"}</code>
+    </div>
+  </div>
+
+  <style>
+    .user-card {
+      text-align: center;
+    }
+
+    .explanation {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .explanation code {
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 16px;
+      padding: 1.5rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      background: white;
+      color: #667eea;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0 auto 1rem;
+    }
+
+    .info {
+      margin-bottom: 1rem;
+    }
+
+    .name-input {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      width: 100%;
+      max-width: 250px;
+    }
+
+    .role {
+      opacity: 0.9;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+
+    .role:hover {
+      text-decoration: underline;
+    }
+
+    .stats {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .level {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .xp-bar {
+      height: 12px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .xp-fill {
+      height: 100%;
+      background: #4ade80;
+      transition: width 0.3s ease;
+    }
+
+    .xp-text {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 0.5rem;
+    }
+
+    .xp-btn {
+      background: white;
+      color: #667eea;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .code-preview {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .code-preview code {
+      display: block;
+      color: #9cdcfe;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+}

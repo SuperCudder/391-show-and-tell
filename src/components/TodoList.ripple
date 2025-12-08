@@ -1,0 +1,143 @@
+import { track } from 'ripple'
+
+export component TodoList() {
+  let todos = #["Learn Ripple", "Build demo", "Present to class"];
+  let newTodo = track("");
+
+  function addTodo() {
+    if (@newTodo.trim()) {
+      todos.push(@newTodo);
+      @newTodo = "";
+    }
+  }
+
+  <div class="todo-list">
+    <p class="explanation">
+      {"Use "}<code>{"#[]"}</code>{" for reactive arrays - push, splice auto-update UI"}
+    </p>
+
+    <div class="add-todo">
+      <input
+        type="text"
+        placeholder="Add a new todo..."
+        value={@newTodo}
+        onInput={(e) => @newTodo = e.target.value}
+        onKeyPress={(e) => e.key === 'Enter' && addTodo()}
+      />
+      <button onClick={addTodo} class="add-btn">{"Add"}</button>
+    </div>
+
+    <ul class="todos">
+      for (const todo of todos) {
+        <li class="todo-item">
+          <span>{todo}</span>
+          <button onClick={() => todos.splice(todos.indexOf(todo), 1)} class="remove-btn">{"x"}</button>
+        </li>
+      }
+    </ul>
+
+    <p class="count">{"Total: "}{todos.length}{" items"}</p>
+
+    <div class="code-preview">
+      <code>{"let todos = #[\"a\", \"b\", \"c\"];"}</code>
+      <code>{"for (const todo of todos) { ... }"}</code>
+      <code>{"todos.push(newItem); // auto-updates!"}</code>
+    </div>
+  </div>
+
+  <style>
+    .todo-list {
+      text-align: center;
+    }
+
+    .explanation {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .explanation code {
+      background: #f0f0f0;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      color: #667eea;
+      font-weight: bold;
+    }
+
+    .add-todo {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .add-todo input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .add-todo input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .add-btn {
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .todos {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+
+    .todo-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .remove-btn {
+      width: 28px;
+      height: 28px;
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .count {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .code-preview {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .code-preview code {
+      display: block;
+      color: #9cdcfe;
+      font-family: monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  </style>
+}
