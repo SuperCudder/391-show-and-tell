@@ -1,0 +1,20 @@
+{
+  "name": "ripple-ts-demo",
+  "version": "1.0.0",
+  "description": "Ripple-TS Demo for Show and Tell Presentation",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "ripple": "latest"
+  },
+  "devDependencies": {
+    "@ripple-ts/vite-plugin": "latest",
+    "typescript": "^5.5.3",
+    "vite": "^7.2.7"
+  },
+  "private": true
+}
